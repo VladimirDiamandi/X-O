@@ -1,7 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GameBox } from './GameBox';
 import { exIcon, zeroIcon } from './svgIcons';
 import { Winner } from './Winner';
@@ -26,7 +25,6 @@ export const GameGrid = () => {
 
   useEffect(() => {
     if (gameMap.indexOf('') === -1 && !isWinner) {
-      console.log('>>>>>>>>>>>', isWinner);
       setIsWinner(true);
       setIsDraw(true);
     }
