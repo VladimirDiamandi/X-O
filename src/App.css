@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  position: relative;
 }
 
 body {
@@ -26,4 +27,31 @@ body {
   display: inline-block;
   height: 1.5em;
   width: 3em;
+}
+.game__winner-icon {
+  height: 1.5em;
+}
+.game__button {
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.game__button:hover {
+  color: lightcoral;
+} 
+
+.game__winner-wrapper {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  opacity: 0.85;
 }
