@@ -1,3 +1,29 @@
 .App {
   text-align: center;
 }
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.game__grid {
+  display: grid;
+  grid-template-rows: 200px 200px 200px;
+  grid-template-columns: 200px 200px 200px;
+}
+
+.game__box {
+  background: #444;
+  border: 1px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #AAA;
+}
+
+.game__turn-icon {
+  display: inline-block;
+  height: 1.5em;
+  width: 3em;
+}
