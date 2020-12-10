@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { GameBox } from './GameBox';
 import { exIcon, zeroIcon } from './svgIcons';
 import { Winner } from './Winner';
@@ -22,13 +22,6 @@ export const GameGrid = () => {
   const [isDraw, setIsDraw] = useState(false);
   const currentTurnIcon = currentTurn === 'x' ? exIcon : zeroIcon;
   const winnerIcon = currentTurn === '0' ? exIcon : zeroIcon;
-
-  useEffect(() => {
-    if (gameMap.indexOf('') === -1 && !isWinner) {
-      setIsWinner(true);
-      setIsDraw(true);
-    }
-  }, [gameMap]);
 
   const calcIsWinner = (game) => {
     for (let i = 0; i < winConditions.length; i++) {
@@ -52,9 +45,15 @@ export const GameGrid = () => {
     setGameMap((prevState) => {
       const newState = prevState;
       newState[id] = currentTurn;
+      const isWin = calcIsWinner(newState);
 
-      if (calcIsWinner(newState)) {
+      if (isWin) {
         setIsWinner(true);
+      }
+
+      if (!isWin && newState.indexOf('') === -1) {
+        setIsWinner(true);
+        setIsDraw(true);
       }
 
       return [...newState];
