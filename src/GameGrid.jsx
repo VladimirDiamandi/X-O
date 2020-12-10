@@ -17,6 +17,7 @@ export const GameGrid = () => {
     [2, 4, 6],
   ];
   const [isWinner, setIsWinner] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [gameMap, setGameMap] = useState(Array(9).fill(''));
   const [currentTurn, setCurrentTurn] = useState('x');
   const [isDraw, setIsDraw] = useState(false);
@@ -49,10 +50,8 @@ export const GameGrid = () => {
 
       if (isWin) {
         setIsWinner(true);
-      }
-
-      if (!isWin && newState.indexOf('') === -1) {
-        setIsWinner(true);
+      } else if (newState.indexOf('') === -1) {
+        setIsGameOver(true);
         setIsDraw(true);
       }
 
@@ -70,7 +69,7 @@ export const GameGrid = () => {
       <h2>
         Current turn
         <div className="game__turn-icon">{currentTurnIcon}</div>
-        {isWinner && <Winner icon={winnerIcon} onClick={init} isDraw={isDraw} />}
+        {(isWinner || isGameOver) && <Winner icon={winnerIcon} onClick={init} isDraw={isDraw} />}
       </h2>
       <div className="game__grid">
         {gameMap.map((boxValue, id) => (
