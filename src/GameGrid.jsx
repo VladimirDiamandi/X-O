@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { GameBox } from './GameBox';
 import { exIcon, zeroIcon } from './svgIcons';
 import { Winner } from './Winner';
@@ -19,8 +20,17 @@ export const GameGrid = () => {
   const [isWinner, setIsWinner] = useState(false);
   const [gameMap, setGameMap] = useState(Array(9).fill(''));
   const [currentTurn, setCurrentTurn] = useState('x');
+  const [isDraw, setIsDraw] = useState(false);
   const currentTurnIcon = currentTurn === 'x' ? exIcon : zeroIcon;
   const winnerIcon = currentTurn === '0' ? exIcon : zeroIcon;
+
+  useEffect(() => {
+    if (gameMap.indexOf('') === -1 && !isWinner) {
+      console.log('>>>>>>>>>>>', isWinner);
+      setIsWinner(true);
+      setIsDraw(true);
+    }
+  }, [gameMap]);
 
   const calcIsWinner = (game) => {
     for (let i = 0; i < winConditions.length; i++) {
@@ -48,8 +58,10 @@ export const GameGrid = () => {
       if (calcIsWinner(newState)) {
         setIsWinner(true);
       }
+
       return [...newState];
     });
+
     setCurrentTurn((prevState) => {
       const newState = prevState === 'x' ? '0' : 'x';
       return newState;
@@ -61,7 +73,7 @@ export const GameGrid = () => {
       <h2>
         Current turn
         <div className="game__turn-icon">{currentTurnIcon}</div>
-        {isWinner && <Winner icon={winnerIcon} onClick={init} />}
+        {isWinner && <Winner icon={winnerIcon} onClick={init} isDraw={isDraw} />}
       </h2>
       <div className="game__grid">
         {gameMap.map((boxValue, id) => (
